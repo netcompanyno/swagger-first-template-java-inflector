@@ -16,6 +16,7 @@
         <restassured.version>3.0.7</restassured.version>
         <swagger-codegen-maven-plugin.version>2.3.1</swagger-codegen-maven-plugin.version>
         <swagger-inflector.version>1.0.15</swagger-inflector.version>
+        <swagger-ui.version>3.17.1</swagger-ui.version>
     </properties>
 
     <parent>
@@ -49,7 +50,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>swagger-ui</artifactId>
-            <version>3.17.1</version>
+            <version>${swagger-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
