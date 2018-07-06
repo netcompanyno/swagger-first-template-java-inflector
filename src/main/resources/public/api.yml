@@ -1,0 +1,98 @@
+swagger: "2.0"
+info:
+  title: Swagger first demonstration
+  version: '1.0'
+  description: An API demonstrating a Swagger first approach to API-development.
+host: localhost:8080
+basePath: /
+schemes:
+  - http
+paths:
+  /ping:
+    get:
+      x-swagger-router-controller: no.nc.ping.PingController
+      operationId: getPing
+      description: Accepts an optional message and returns it with a timestamp.
+      produces:
+        - application/json
+      parameters:
+        - name: message
+          description: The message to be returned in the response.
+          type: string
+          in: query
+          required: false
+      tags:
+        - Ping
+      responses:
+        '200':
+          description: Everything's fine.
+          schema:
+            $ref: '#/definitions/Pong'
+  /messages:
+    post:
+      x-swagger-router-controller: MessageController
+      operationId: postMessage
+      description: Post your messages to this endpoint.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: message
+          description: The message.
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Message'
+      tags:
+        - Messages
+      responses:
+        '201':
+          description: The message was created.
+          headers:
+            Location:
+              description: An URL to the created message
+              type: string
+          schema:
+            $ref: '#/definitions/ExtendedMessage'
+definitions:
+  Pong:
+    type: object
+    description: A message and a timestamp.
+    properties:
+      message:
+        type: string
+      dateAndTime:
+        type: string
+        format: date-time
+  Message:
+    type: object
+    description:
+    properties:
+      title:
+        type: string
+      text:
+        type: string
+  ExtendedMessage:
+    type: object
+    description: A message with additional information.
+    allOf:
+      - properties:
+          id:
+            type: string
+            format: uuid
+          author:
+            $ref: '#/definitions/Author'
+          created:
+            type: string
+            format: 'date-time'
+      - $ref: '#/definitions/Message'
+  Author:
+    type: object
+    description: The author of a message.
+    properties:
+      name:
+        type: string
+      dateOfBirth:
+        type: string
+        format: date

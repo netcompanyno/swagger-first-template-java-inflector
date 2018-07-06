@@ -1,0 +1,21 @@
+server:
+  port: 8080
+  contextPath: /
+api:
+  basePackage: no.nc
+spring:
+  application:
+    name: @project.artifactId@
+  jersey:
+    application-path: /api
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+swagger-inflector:
+  environment: development
+  modelPackage: no.nc.model
+  swaggerUrl: ./src/main/resources/public/api.yml
+  rootPath: /api
+  entityProcessors:
+    - json
